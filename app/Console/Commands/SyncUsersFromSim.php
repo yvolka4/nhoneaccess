@@ -53,6 +53,7 @@ class SyncUsersFromSim extends Command
                         'email' => $email,
                         'password' => $password,
                         'role' => $role,
+                        'is_active' => $pegawai->is_active ?? 1,
                         'updated_at' => Carbon::now(),
                     ]);
                     $countUpdated++;
@@ -63,6 +64,7 @@ class SyncUsersFromSim extends Command
                         'email' => $email,
                         'password' => $password,
                         'role' => $role,
+                        'is_active' => $pegawai->is_active ?? 1,
                         'email_verified_at' => Carbon::now(),
                         'created_at' => Carbon::now(),
                         'updated_at' => Carbon::now(),

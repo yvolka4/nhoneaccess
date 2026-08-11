@@ -48,6 +48,13 @@ class LoginRequest extends FormRequest
             ]);
         }
 
+        if (! Auth::user()->is_active) {
+            Auth::logout();
+            throw ValidationException::withMessages([
+                'nik' => 'Akun Anda sudah tidak aktif dan tidak dapat login.',
+            ]);
+        }
+
         RateLimiter::clear($this->throttleKey());
     }
     /**
