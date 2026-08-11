@@ -20,7 +20,7 @@ jobs:
           port: ${{ secrets.VPS_PORT }}
           script: |
             # GANTI 'sso.domainanda.com' dengan nama folder website Anda di aaPanel
-            cd /www/wwwroot/sso.domainanda.com 
+            cd /www/wwwroot/puskomnh.com 
             
             # Matikan aplikasi sejenak
             php artisan down
