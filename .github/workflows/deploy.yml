@@ -24,8 +24,8 @@ jobs:
             # GANTI 'sso.domainanda.com' dengan nama folder website Anda di aaPanel
             cd /www/wwwroot/puskomnh.com 
             
-            # Matikan aplikasi sejenak
-            php artisan down
+            # Matikan aplikasi sejenak (jangan hentikan script jika gagal karena error syntax sebelumnya)
+            php artisan down || true
             
             # Tarik kode terbaru dari GitHub
             git pull origin main
