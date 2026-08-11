@@ -9,4 +9,4 @@ Artisan::command('inspire', function () {
 
 use Illuminate\Support\Facades\Schedule;
 
-Schedule::command('sync:users-from-sim')->hourly();
+Schedule::command('sync:users-from-sim')->everyFiveMinutes();
