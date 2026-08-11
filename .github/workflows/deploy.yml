@@ -19,6 +19,8 @@ jobs:
           password: ${{ secrets.VPS_PASSWORD }} # Gunakan ini karena server Anda login pakai password
           port: ${{ secrets.VPS_PORT }}
           script: |
+            set -e # Hentikan script jika ada error
+            
             # GANTI 'sso.domainanda.com' dengan nama folder website Anda di aaPanel
             cd /www/wwwroot/puskomnh.com 
             
