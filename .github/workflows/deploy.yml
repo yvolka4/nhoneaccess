@@ -19,7 +19,8 @@ jobs:
           # password: ${{ secrets.VPS_PASSWORD }} # Gunakan ini jika server Anda login pakai password, bukan SSH Key
           port: ${{ secrets.VPS_PORT }}
           script: |
-            cd /path/to/your/sso-server # GANTI DENGAN PATH FOLDER PROJECT DI VPS
+            # GANTI 'sso.domainanda.com' dengan nama folder website Anda di aaPanel
+            cd /www/wwwroot/sso.domainanda.com 
             
             # Matikan aplikasi sejenak
             php artisan down
@@ -27,7 +28,12 @@ jobs:
             # Tarik kode terbaru dari GitHub
             git pull origin main
             
+            # Karena aaPanel menggunakan user 'www' untuk web, kembalikan hak akses ke 'www'
+            # (Penting agar tidak terjadi error Permission Denied di website)
+            chown -R www:www ./
+            
             # Install dependensi (kalau ada update package)
+            # Anda bisa ganti 'php' dengan versi spesifik jika perlu, misal: /www/server/php/82/bin/php
             composer install --no-interaction --prefer-dist --optimize-autoloader
             
             # Update database
