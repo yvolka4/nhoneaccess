@@ -53,7 +53,7 @@ Route::middleware(['auth'])->group(function () {
             ],
             'egajian'    => [
                 'client_id' => '019ff406-8ee7-70f2-9bb6-496029cfdde0',
-                'redirect'  => 'http://nhsolo.com/e-gajian/sso/callback_oauth2.php'
+                'redirect'  => 'https://e-gajian.nhsolo.com/sso/callback'
             ]
         ];
 
