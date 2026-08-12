@@ -22,7 +22,7 @@ jobs:
             set -e # Hentikan script jika ada error
             
             # GANTI 'sso.domainanda.com' dengan nama folder website Anda di aaPanel
-            cd /www/wwwroot/nhsolo.com 
+            cd /www/wwwroot/one.nhsolo.com 
             
             # Matikan aplikasi sejenak (jangan hentikan script jika gagal karena error syntax sebelumnya)
             php artisan down || true
