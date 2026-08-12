@@ -30,11 +30,14 @@ jobs:
             # Tarik kode terbaru dari GitHub
             git pull origin main
             
-            # Karena aaPanel menggunakan user 'www' untuk web, kembalikan hak akses ke 'www'
-            # (Penting agar tidak terjadi error Permission Denied di website)
+            # Kembalikan hak akses ke 'www'
             chown -R www:www ./
             
-            # Install dependensi (kalau ada update package)
+            # Buat kunci Passport jika belum ada di server (penting untuk OAuth2)
+            if [ ! -f storage/oauth-private.key ]; then
+                php artisan passport:keys --no-interaction
+                chown www:www storage/oauth-*.key
+            fi
             # Anda bisa ganti 'php' dengan versi spesifik jika perlu, misal: /www/server/php/82/bin/php
             composer install --no-interaction --prefer-dist --optimize-autoloader
             
