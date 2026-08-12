@@ -19,6 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Laravel\Passport\Passport::useClientModel(\App\Models\PassportClient::class);
+        \Laravel\Passport\Passport::authorizationView(fn () => response('Redirecting...'));
     }
 }
