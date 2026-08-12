@@ -27,8 +27,9 @@ jobs:
             # Matikan aplikasi sejenak (jangan hentikan script jika gagal karena error syntax sebelumnya)
             php artisan down || true
             
-            # Tarik kode terbaru dari GitHub
-            git pull origin main
+            # Tarik kode terbaru dari GitHub (paksa timpa perubahan lokal di server jika ada)
+            git fetch --all
+            git reset --hard origin/main
             
             # Kembalikan hak akses ke 'www'
             chown -R www:www ./
