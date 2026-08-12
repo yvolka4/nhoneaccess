@@ -41,19 +41,19 @@ Route::middleware(['auth'])->group(function () {
         $oauthClients = [
             'sim_utama'  => [
                 'client_id' => '019ff3fe-b9ed-71e0-902b-6dffffbf9473',
-                'redirect'  => 'http://localhost/sim/sso/callback_oauth2.php'
+                'redirect'  => 'http://nhsolo.com/sim/sso/callback_oauth2.php'
             ],
             'sikap'      => [
                 'client_id' => '019ff3fe-b5e2-7270-8329-78785fa016dd',
-                'redirect'  => 'http://localhost/sikap/sso/callback.php'
+                'redirect'  => 'http://nhsolo.com/sikap/sso/callback_oauth2.php'
             ],
             'sipangkat'  => [
                 'client_id' => '019ff3fe-bdc9-735b-a6ed-fc25a35d9ef2',
-                'redirect'  => 'http://localhost/sipangkat/sso/callback.php'
+                'redirect'  => 'http://nhsolo.com/sipangkat/sso/callback_oauth2.php'
             ],
             'egajian'    => [
                 'client_id' => '019ff406-8ee7-70f2-9bb6-496029cfdde0',
-                'redirect'  => 'http://localhost/e-gajian/sso/callback.php'
+                'redirect'  => 'http://nhsolo.com/e-gajian/sso/callback_oauth2.php'
             ]
         ];
 
