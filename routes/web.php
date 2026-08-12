@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
         $oauthClients = [
             'sim_utama'  => [
                 'client_id' => '019ff3fe-b9ed-71e0-902b-6dffffbf9473',
-                'redirect'  => 'http://localhost/sim/sso/callback.php'
+                'redirect'  => 'http://localhost/sim/sso/callback_oauth2.php'
             ],
             'sikap'      => [
                 'client_id' => '019ff3fe-b5e2-7270-8329-78785fa016dd',
