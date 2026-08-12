@@ -32,132 +32,43 @@ Route::middleware('auth')->group(function () {
 });
 
 
-// ── SSO Redirect ──
+// ── SSO Redirect (OAuth2 Adapted) ──
 Route::middleware(['auth'])->group(function () {
     Route::get('/sso/redirect', function (Request $request) {
         $appKey = strtolower($request->query('app'));
 
-        $apps = [
-            'sim_utama'  => 'http://nhsolo.com/sim/sso/callback.php',
-            'siipinh'    => '#',
-            'siupinh'    => 'https://siupinadmin.nhsolo.com/sso/callback',
-            'sikap'      => 'http://nhsolo.com/sikap/sso/callback.php',
-            'sisehat'    => 'https://sisehat.nhsolo.com/sso/callback',
-            'sijamil'    => 'https://sijamil.nhsolo.com/sso/callback',
-            'sipkbs'     => 'https://sipkbs.nhsolo.com/sso/callback',
-            'sipangkat'  => 'http://nhsolo.com/sipangkat/sso/callback.php',
-            'alumyah'    => 'https://sialumyah.nhsolo.com/sso/callback',
-            'egajian'    => 'http://e-gajian.nhsolo.com/sso/callback',
+        // Client IDs dari Passport (Harus disesuaikan dengan database oauth_clients)
+        $oauthClients = [
+            'sim_utama'  => [
+                'client_id' => '019ff3fe-b9ed-71e0-902b-6dffffbf9473',
+                'redirect'  => 'http://nhsolo.com/sim/sso/callback.php'
+            ],
+            'sikap'      => [
+                'client_id' => '019ff3fe-b5e2-7270-8329-78785fa016dd',
+                'redirect'  => 'http://nhsolo.com/sikap/sso/callback.php'
+            ],
+            'sipangkat'  => [
+                'client_id' => '019ff3fe-bdc9-735b-a6ed-fc25a35d9ef2',
+                'redirect'  => 'http://nhsolo.com/sipangkat/sso/callback.php'
+            ]
         ];
 
-        if (!isset($apps[$appKey])) {
-            return "Error: Aplikasi [".$appKey."] tidak terdaftar. Cek link di dashboard Anda.";
+        if (!isset($oauthClients[$appKey])) {
+            return "Error: Aplikasi [".$appKey."] belum didaftarkan sebagai OAuth2 Client di SSO ini.";
         }
 
-        $user = auth()->user();
-        if (!$user->nik) {
-            return "Error: User [".$user->name."] tidak memiliki NIK di database SSO.";
-        }
+        $client = $oauthClients[$appKey];
+        
+        // Membangun URL untuk standard OAuth2 Authorization Code Grant
+        $query = http_build_query([
+            'client_id' => $client['client_id'],
+            'redirect_uri' => $client['redirect'],
+            'response_type' => 'code',
+            'scope' => '',
+            'state' => Str::random(40), // CSRF Protection
+        ]);
 
-        $rawToken    = Str::random(64);
-        $hashedToken = hash('sha256', $rawToken);
-
-        try {
-            if ($appKey === 'egajian') {
-                DB::connection('egajian')->table('sso_tokens')->insert([
-                    'nik'        => $user->nik,
-                    'token'      => $hashedToken,
-                    'expires_at' => now()->addMinutes(5),
-                    'created_at' => now(),
-                ]);
-            } else if ($appKey === 'sim_utama') {
-                // Cek apakah user ada di database sim_nurhidayah
-                $userExists = DB::connection('sim')->table('pegawai')->where('nik', $user->nik)->exists();
-                if (!$userExists) {
-                    return "Error: Akun dengan NIK [".$user->nik."] tidak ditemukan di sistem SIM UTAMA.";
-                }
-
-                // Pastikan tabel sso_tokens ada di database sim_nurhidayah sebelum insert
-                DB::connection('sim')->statement("
-                    CREATE TABLE IF NOT EXISTS sso_tokens (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        nik VARCHAR(50) NOT NULL,
-                        token VARCHAR(64) NOT NULL,
-                        expires_at TIMESTAMP NOT NULL,
-                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        INDEX (token),
-                        INDEX (nik)
-                    )
-                ");
-
-                DB::connection('sim')->table('sso_tokens')->insert([
-                    'nik'        => $user->nik,
-                    'token'      => $hashedToken,
-                    'expires_at' => now()->addMinutes(5),
-                    'created_at' => now(),
-                ]);
-            } else if ($appKey === 'sipangkat') {
-                // Cek apakah user ada di database sipangkat
-                $userExists = DB::connection('sipangkat')->table('pegawai')->where('nik', $user->nik)->exists();
-                if (!$userExists) {
-                    return "Error: Akun dengan NIK [".$user->nik."] tidak ditemukan di sistem SIPANGKAT.";
-                }
-
-                // Pastikan tabel sso_tokens ada di database sipangkat sebelum insert
-                DB::connection('sipangkat')->statement("
-                    CREATE TABLE IF NOT EXISTS sso_tokens (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        nik VARCHAR(50) NOT NULL,
-                        token VARCHAR(64) NOT NULL,
-                        expires_at TIMESTAMP NOT NULL,
-                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        INDEX (token),
-                        INDEX (nik)
-                    )
-                ");
-
-                DB::connection('sipangkat')->table('sso_tokens')->insert([
-                    'nik'        => $user->nik,
-                    'token'      => $hashedToken,
-                    'expires_at' => now()->addMinutes(5),
-                    'created_at' => now(),
-                ]);
-            } else if ($appKey === 'sikap') {
-                // Cek apakah user ada di database sikap (sesuaikan nama tabel pegawai/users jika perlu)
-                // Jika tidak yakin, kita langsung buat tabel sso_tokens dan insert tokennya
-                DB::connection('sikap')->statement("
-                    CREATE TABLE IF NOT EXISTS sso_tokens (
-                        id INT AUTO_INCREMENT PRIMARY KEY,
-                        nik VARCHAR(50) NOT NULL,
-                        token VARCHAR(64) NOT NULL,
-                        expires_at TIMESTAMP NOT NULL,
-                        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                        INDEX (token),
-                        INDEX (nik)
-                    )
-                ");
-
-                DB::connection('sikap')->table('sso_tokens')->insert([
-                    'nik'        => $user->nik,
-                    'token'      => $hashedToken,
-                    'expires_at' => now()->addMinutes(5),
-                    'created_at' => now(),
-                ]);
-            } else {
-                DB::table('sso_tokens')->insert([
-                    'nik'        => $user->nik,
-                    'token'      => $hashedToken,
-                    'expires_at' => now()->addMinutes(5),
-                    'created_at' => now(),
-                ]);
-            }
-        } catch (\Exception $e) {
-            return "Gagal membuat token: " . $e->getMessage();
-        }
-
-        $redirectUrl = $apps[$appKey] . "?sso_token=" . $rawToken;
-
-        return redirect()->away($redirectUrl);
+        return redirect('/oauth/authorize?'.$query);
     })->name('sso.redirect');
 });
 

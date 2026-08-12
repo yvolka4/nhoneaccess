@@ -3,7 +3,7 @@ name: Deploy to VPS
 on:
   push:
     branches:
-      - main # Jalankan otomatis setiap kali ada push ke branch main
+      - disable-main # Sengaja dimatikan sementara selama proses integrasi OAuth2
 
 jobs:
   deploy:
@@ -22,7 +22,7 @@ jobs:
             set -e # Hentikan script jika ada error
             
             # GANTI 'sso.domainanda.com' dengan nama folder website Anda di aaPanel
-            cd /www/wwwroot/one.nhsolo.com 
+            cd /www/wwwroot/nhsolo.com 
             
             # Matikan aplikasi sejenak (jangan hentikan script jika gagal karena error syntax sebelumnya)
             php artisan down || true
