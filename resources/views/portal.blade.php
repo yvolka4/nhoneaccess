@@ -3,10 +3,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Portal Layanan Digital Terpadu Yayasan Nur Hidayah. Akses seluruh layanan digital yayasan dari satu portal secara aman dan efisien.">
     <title>Portal - One Access Yayasan Nur Hidayah</title>
+    
+    <!-- Preload LCP Background if possible, or Preconnect -->
+    <link rel="preconnect" href="https://nhsolo.com">
     <link rel="icon" type="image/png" href="https://nhsolo.com/images/PUSKOM.png">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=plus-jakarta-sans:300,400,500,600,700|cormorant-garamond:400,500,600" rel="stylesheet"/>
+    
+    <link rel="preconnect" href="https://fonts.bunny.net" crossorigin>
+    
+    <!-- Defer font loading for faster FCP -->
+    <link rel="preload" as="style" href="https://fonts.bunny.net/css?family=plus-jakarta-sans:300,400,500,600,700|cormorant-garamond:400,500,600">
+    <link rel="stylesheet" href="https://fonts.bunny.net/css?family=plus-jakarta-sans:300,400,500,600,700|cormorant-garamond:400,500,600" media="print" onload="this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.bunny.net/css?family=plus-jakarta-sans:300,400,500,600,700|cormorant-garamond:400,500,600">
+    </noscript>
     <style>
         :root {
             --green:        #1a7c4a;
@@ -396,8 +407,8 @@
             background: var(--amber-pale);
         }
         .card-logo img {
-            max-width: 72px;
-            max-height: 64px;
+            width: 72px;
+            height: 64px;
             object-fit: contain;
         }
         .card-body {
@@ -478,8 +489,8 @@
             flex-shrink: 0;
         }
         .modal-logo img {
-            max-width: 44px;
-            max-height: 44px;
+            width: 44px;
+            height: 44px;
             object-fit: contain;
         }
         .modal-title-wrap { flex: 1; }
@@ -686,7 +697,7 @@
         @else
             <div class="website-card" onclick="openModal('website2')">
         @endauth
-            <div class="card-logo"><img src="https://nhsolo.com/images/SIM utama.png" alt="SIM UTAMA YNH"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/SIM utama.png" alt="SIM UTAMA YNH" width="72" height="64" loading="eager" fetchpriority="high"></div>
             <div class="card-body">
                 <div class="card-title">SIM UTAMA YNH</div>
                 <span class="card-tag sso">
@@ -706,7 +717,7 @@
         @else
             <div class="website-card" onclick="openModal('website5')">
         @endauth
-            <div class="card-logo"><img src="https://nhsolo.com/images/SIKAP.png" alt="SIKAP"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/SIKAP.png" alt="SIKAP" width="72" height="64" loading="eager" fetchpriority="high"></div>
             <div class="card-body">
                 <div class="card-title">SIKAP</div>
                 <span class="card-tag sso">
@@ -726,7 +737,7 @@
         @else
             <div class="website-card" onclick="openModal('website9')">
         @endauth
-            <div class="card-logo"><img src="https://nhsolo.com/images/Pangkat.png" alt="SIPANGKAT"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/Pangkat.png" alt="SIPANGKAT" width="72" height="64" loading="eager" fetchpriority="high"></div>
             <div class="card-body">
                 <div class="card-title">SIPANGKAT</div>
                 <span class="card-tag sso">
@@ -746,7 +757,7 @@
         @else
             <div class="website-card" onclick="openModal('website13')">
         @endauth
-            <div class="card-logo"><img src="https://nhsolo.com/images/gaji.png" alt="E-gajian"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/gaji.png" alt="E-gajian" width="72" height="64" loading="eager" fetchpriority="high"></div>
             <div class="card-body">
                 <div class="card-title">E-GAJIAN</div>
                 <span class="card-tag sso">
@@ -777,7 +788,7 @@
 
     <div class="grid">
         <div class="website-card" onclick="openModal('website4')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/UpinH.png" alt="SIUPINH"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/UpinH.png" alt="SIUPINH" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">SIUPINH</div>
                 <span class="card-tag" style="background:#eef2ff;color:#3730a3;">
@@ -787,7 +798,7 @@
             </div>
         </div>
         <div class="website-card" onclick="openModal('website6')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/Sehat.png" alt="SISEHAT"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/Sehat.png" alt="SISEHAT" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">SISEHAT</div>
                 <span class="card-tag" style="background:#eef2ff;color:#3730a3;">
@@ -797,7 +808,7 @@
             </div>
         </div>
         <div class="website-card" onclick="openModal('website7')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/Jamil.png" alt="SIJAMIL"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/Jamil.png" alt="SIJAMIL" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">SIJAMIL</div>
                 <span class="card-tag" style="background:#eef2ff;color:#3730a3;">
@@ -807,7 +818,7 @@
             </div>
         </div>
         <div class="website-card" onclick="openModal('website8')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/PKBS.png" alt="SIPKBS"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/PKBS.png" alt="SIPKBS" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">SIPKBS</div>
                 <span class="card-tag" style="background:#eef2ff;color:#3730a3;">
@@ -817,7 +828,7 @@
             </div>
         </div>
         <div class="website-card" onclick="openModal('website11')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/saldo.png" alt="Saldo Plus"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/saldo.png" alt="Saldo Plus" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">SALDO PLUS</div>
                 <span class="card-tag" style="background:#eef2ff;color:#3730a3;">
@@ -827,7 +838,7 @@
             </div>
         </div>
         <div class="website-card" onclick="openModal('website3')" style="opacity:.6;pointer-events:none;">
-            <div class="card-logo"><img src="https://nhsolo.com/images/IpiNH.png" alt="SIIPINH"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/IpiNH.png" alt="SIIPINH" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">SIIPINH</div>
                 <span class="card-tag" style="background:#f1f5f9;color:#64748b;">
@@ -853,7 +864,7 @@
 
     <div class="grid">
         <div class="website-card amber-group" onclick="openModal('website1')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/logo1.png" alt="Website Utama"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/logo1.png" alt="Website Utama" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">WEBSITE UTAMA</div>
                 <span class="card-tag open">
@@ -863,7 +874,7 @@
             </div>
         </div>
         <div class="website-card amber-group" onclick="openModal('website10')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/jejakNH_warna.png" alt="ALUMYAH"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/jejakNH_warna.png" alt="ALUMYAH" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">ALUMYAH</div>
                 <span class="card-tag open">
@@ -873,7 +884,7 @@
             </div>
         </div>
         <div class="website-card amber-group" onclick="openModal('website12')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/kalender.png" alt="Kalender YNH"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/kalender.png" alt="Kalender YNH" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">KALENDER YNH</div>
                 <span class="card-tag open">
@@ -883,7 +894,7 @@
             </div>
         </div>
         <div class="website-card amber-group" onclick="openModal('website14')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/ponpes.png" alt="PPNH"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/ponpes.png" alt="PPNH" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">PPNH</div>
                 <span class="card-tag open">
@@ -893,7 +904,7 @@
             </div>
         </div>
         <div class="website-card amber-group" onclick="openModal('website15')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/webinar.png" alt="Webinar"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/webinar.png" alt="Webinar" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">WEBINAR</div>
                 <span class="card-tag open">
@@ -903,7 +914,7 @@
             </div>
         </div>
         <div class="website-card amber-group" onclick="openModal('website16')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/joinnn.png" alt="JoinNH"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/joinnn.png" alt="JoinNH" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">JOIN NH</div>
                 <span class="card-tag open">
@@ -913,7 +924,7 @@
             </div>
         </div>
         <div class="website-card amber-group" onclick="openModal('website17')">
-            <div class="card-logo"><img src="https://nhsolo.com/images/ponpes.png" alt="PPDB PONPES"></div>
+            <div class="card-logo"><img src="https://nhsolo.com/images/ponpes.png" alt="PPDB PONPES" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">PSB PONPES</div>
                 <span class="card-tag open">
@@ -923,7 +934,7 @@
             </div>
         </div>
         <div class="website-card amber-group" onclick="openModal('website18')">
-            <div class="card-logo"><img src="https://pendaftaran.ppdbnurhidayah.com/image/logo_yayasan.png" alt="PPDB NUR HIDAYAH"></div>
+            <div class="card-logo"><img src="https://pendaftaran.ppdbnurhidayah.com/image/logo_yayasan.png" alt="PPDB NUR HIDAYAH" width="72" height="64" loading="lazy"></div>
             <div class="card-body">
                 <div class="card-title">PPDB NUR HIDAYAH</div>
                 <span class="card-tag open">
