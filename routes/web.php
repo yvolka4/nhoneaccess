@@ -37,42 +37,18 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sso/redirect', function (Request $request) {
         $appKey = strtolower($request->query('app'));
 
-        // Client IDs dari Passport (Harus disesuaikan dengan database oauth_clients)
-        $oauthClients = [
-            'sim_utama'  => [
-                'client_id' => '019ff3fe-b9ed-71e0-902b-6dffffbf9473',
-                'redirect'  => 'https://nhsolo.com/sim/sso/callback_oauth2.php'
-            ],
-            'sikap'      => [
-                'client_id' => '019ff3fe-b5e2-7270-8329-78785fa016dd',
-                'redirect'  => 'https://nhsolo.com/sikap/sso/callback_oauth2.php'
-            ],
-            'sipangkat'  => [
-                'client_id' => '019ff3fe-bdc9-735b-a6ed-fc25a35d9ef2',
-                'redirect'  => 'https://nhsolo.com/sipangkat/sso/callback_oauth2.php'
-            ],
-            'egajian'    => [
-                'client_id' => '019ff406-8ee7-70f2-9bb6-496029cfdde0',
-                'redirect'  => 'https://e-gajian.nhsolo.com/sso/callback'
-            ]
+        $loginEndpoints = [
+            'sim_utama'  => 'https://nhsolo.com/sim/sso/login_oauth2.php',
+            'sikap'      => 'https://nhsolo.com/sikap/sso/login_oauth2.php',
+            'sipangkat'  => 'https://nhsolo.com/sipangkat/sso/login_oauth2.php',
+            'egajian'    => 'https://e-gajian.nhsolo.com/sso/login'
         ];
 
-        if (!isset($oauthClients[$appKey])) {
+        if (!isset($loginEndpoints[$appKey])) {
             return "Error: Aplikasi [".$appKey."] belum didaftarkan sebagai OAuth2 Client di SSO ini.";
         }
 
-        $client = $oauthClients[$appKey];
-        
-        // Membangun URL untuk standard OAuth2 Authorization Code Grant
-        $query = http_build_query([
-            'client_id' => $client['client_id'],
-            'redirect_uri' => $client['redirect'],
-            'response_type' => 'code',
-            'scope' => '',
-            'state' => Str::random(40), // CSRF Protection
-        ]);
-
-        return redirect('/oauth/authorize?'.$query);
+        return redirect($loginEndpoints[$appKey]);
     })->name('sso.redirect');
 });
 
